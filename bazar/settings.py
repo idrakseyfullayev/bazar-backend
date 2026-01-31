@@ -60,11 +60,6 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = True  # GitHub Pages üçün
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'cloud_name',
-    'API_KEY': 'api_key',
-    'API_SECRET': 'api_secret',
-}
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
@@ -91,14 +86,12 @@ WSGI_APPLICATION = "bazar.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-
-import os
-import dj_database_url  # pip install dj-database-url lazım ola bilər
-
 DATABASES = {
-    "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
-
 
 
 # Password validation
@@ -148,7 +141,6 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
